@@ -6,10 +6,11 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import Scanning from "./scanning";
 import Connected from "./connected";
+import DeviceProvider from "../store/deviceContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,12 +50,14 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const [isConnected, setIsConnected] = useState(false);
   const colorScheme = useColorScheme();
-  const isConnected = true;
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {isConnected ? Connected() : Scanning()}
+      <DeviceProvider value={{ isConnected, setIsConnected, profile: "test" }}>
+        {isConnected ? Connected(setIsConnected) : Scanning(setIsConnected)}
+      </DeviceProvider>
     </ThemeProvider>
   );
 }
