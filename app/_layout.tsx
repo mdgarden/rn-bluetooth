@@ -54,10 +54,10 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <DeviceProvider value={{ isConnected, setIsConnected, profile: "test" }}>
-        {isConnected ? Connected(setIsConnected) : Scanning(setIsConnected)}
-      </DeviceProvider>
-    </ThemeProvider>
+    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <DeviceProvider value={{ isConnected, setIsConnected, profile: "test" }}>
+      {isConnected ? Connected(setIsConnected) : Scanning(setIsConnected)}
+    </DeviceProvider>
+    // </ThemeProvider>
   );
 }

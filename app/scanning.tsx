@@ -5,7 +5,7 @@ export default function Scanning(setIsConnected: any) {
     <>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text style={{ color: "black" }}>Scanning Bluetooth device</Text>
-        <Button title="Connect Device" onPress={() => setIsConnected(true)} />
+        <Button title={"Connect Device"} onPress={() => setIsConnected(true)} />
       </View>
     </>
   );
