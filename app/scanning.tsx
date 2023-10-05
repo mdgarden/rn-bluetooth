@@ -1,24 +1,50 @@
-import { View, Text, Button, ScrollView, StyleSheet } from "react-native";
+import { View, Text, Button, FlatList, StyleSheet } from "react-native";
 import { devices } from "../dummy/devices";
+
+type ItemProps = {
+  index: number;
+  title: string;
+};
+
+const Item = ({ index, title }: ItemProps) => (
+  <View style={styles.list} key={index}>
+    <Text style={styles.device}>{title}</Text>
+  </View>
+);
 
 export default function Scanning(setIsConnected: any) {
   return (
-    <View style={{ flex: 1, backgroundColor: "gold" }}>
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: "mediumorchid",
-          alignContent: "center",
-          justifyContent: "center",
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          flex: 2,
           padding: 20,
+          paddingTop: 100,
+          backgroundColor: "mediumorchid",
         }}
       >
-        {devices.map((device) => (
-          <View style={styles.list} key={device.index}>
-            <Text style={styles.device}>{device.name}</Text>
-          </View>
-        ))}
-      </ScrollView>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <FlatList
+          contentContainerStyle={{
+            alignContent: "center",
+            justifyContent: "center",
+            padding: 20,
+            borderRadius: 25,
+          }}
+          data={devices}
+          renderItem={({ item }) => (
+            <Item title={item.deviceName} index={item.index} />
+          )}
+          keyExtractor={(device) => device.index + ""}
+        />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "gold",
+        }}
+      >
         <Text style={{ color: "black" }}>scanning Bluetooth device</Text>
         <Button title={"Connect Device"} onPress={() => setIsConnected(true)} />
       </View>
@@ -28,9 +54,12 @@ export default function Scanning(setIsConnected: any) {
 
 const styles = StyleSheet.create({
   list: {
-    padding: 3,
+    padding: 20,
+    borderColor: "gold",
+    borderWidth: 1,
+    margin: 4,
   },
   device: {
-    fontSize: 20,
+    fontSize: 25,
   },
 });
