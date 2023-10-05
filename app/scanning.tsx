@@ -1,4 +1,11 @@
-import { View, Text, Button, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { devices } from "../dummy/devices";
 
 type ItemProps = {
@@ -13,6 +20,8 @@ const Item = ({ index, title }: ItemProps) => (
 );
 
 export default function Scanning(setIsConnected: any) {
+  const searching = false;
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -21,21 +30,31 @@ export default function Scanning(setIsConnected: any) {
           padding: 20,
           paddingTop: 100,
           backgroundColor: "mediumorchid",
+          justifyContent: "center",
+          alignItems: devices ? "stretch" : "center",
         }}
       >
-        <FlatList
-          contentContainerStyle={{
-            alignContent: "center",
-            justifyContent: "center",
-            padding: 20,
-            borderRadius: 25,
-          }}
-          data={devices}
-          renderItem={({ item }) => (
-            <Item title={item.deviceName} index={item.index} />
-          )}
-          keyExtractor={(device) => device.index + ""}
-        />
+        {searching && (
+          <View>
+            <ActivityIndicator size="large" color="gold" />
+          </View>
+        )}
+        {devices && (
+          <FlatList
+            contentContainerStyle={{
+              alignContent: "center",
+              justifyContent: "center",
+              padding: 20,
+              borderRadius: 25,
+            }}
+            data={devices}
+            renderItem={({ item }) => (
+              <Item title={item.deviceName} index={item.index} />
+            )}
+            keyExtractor={(device) => device.index + ""}
+          />
+        )}
+        {!devices && <Text>Device Not found</Text>}
       </View>
       <View
         style={{
