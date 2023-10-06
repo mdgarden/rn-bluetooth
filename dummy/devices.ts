@@ -1,4 +1,4 @@
-type Device = {
+export type Device = {
   deviceName: string;
   index: number;
 };

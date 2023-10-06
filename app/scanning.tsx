@@ -7,78 +7,48 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { devices } from "../dummy/devices";
-
-type ItemProps = {
-  index: number;
-  title: string;
-};
-
-const Item = ({ index, title }: ItemProps) => (
-  <View style={styles.list} key={index}>
-    <Text style={styles.device}>{title}</Text>
-  </View>
-);
+import { useState } from "react";
+import DeviceList from "../components/DeviceList";
 
 export default function Scanning(setIsConnected: any) {
+  const [selectedDevice, setSelectedDevice] = useState<String>("");
   const searching = false;
 
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 2,
-          padding: 20,
-          paddingTop: 100,
-          backgroundColor: "mediumorchid",
-          justifyContent: "center",
-          alignItems: devices ? "stretch" : "center",
-        }}
-      >
+      <View style={styles.scannerContainer}>
         {searching && (
           <View>
             <ActivityIndicator size="large" color="gold" />
           </View>
         )}
-        {devices && (
-          <FlatList
-            contentContainerStyle={{
-              alignContent: "center",
-              justifyContent: "center",
-              padding: 20,
-              borderRadius: 25,
-            }}
-            data={devices}
-            renderItem={({ item }) => (
-              <Item title={item.deviceName} index={item.index} />
-            )}
-            keyExtractor={(device) => device.index + ""}
-          />
-        )}
-        {!devices && <Text>Device Not found</Text>}
+        {devices && <DeviceList devices={devices} />}
+        {!devices && !searching && <Text>Device Not found</Text>}
       </View>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "gold",
-        }}
-      >
-        <Text style={{ color: "black" }}>scanning Bluetooth device</Text>
-        <Button title={"Connect Device"} onPress={() => setIsConnected(true)} />
+      <View style={styles.buttonContainer}>
+        <Button
+          title={"Connect Device"}
+          onPress={() => setIsConnected(true)}
+          disabled={true}
+        />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  list: {
+  scannerContainer: {
+    flex: 2,
     padding: 20,
-    borderColor: "gold",
-    borderWidth: 1,
-    margin: 4,
+    paddingTop: 100,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: devices ? "stretch" : "center",
   },
-  device: {
-    fontSize: 25,
+
+  buttonContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
