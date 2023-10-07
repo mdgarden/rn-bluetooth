@@ -11,8 +11,11 @@ import { useState } from "react";
 import DeviceList from "../components/DeviceList";
 
 export default function Scanning(setIsConnected: any) {
-  const [selectedDevice, setSelectedDevice] = useState<String>("");
+  const [selectedDevice, setSelectedDevice] = useState<string>("");
   const searching = false;
+  const handleSelectDevice = (name: string) => {
+    selectedDevice === name ? setSelectedDevice("") : setSelectedDevice(name);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -22,14 +25,20 @@ export default function Scanning(setIsConnected: any) {
             <ActivityIndicator size="large" color="gold" />
           </View>
         )}
-        {devices && <DeviceList devices={devices} />}
+        {devices && (
+          <DeviceList
+            devices={devices}
+            selected={selectedDevice}
+            onPress={handleSelectDevice}
+          />
+        )}
         {!devices && !searching && <Text>Device Not found</Text>}
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title={"Connect Device"}
           onPress={() => setIsConnected(true)}
-          disabled={true}
+          disabled={!selectedDevice}
         />
       </View>
     </View>
