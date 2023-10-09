@@ -10,7 +10,7 @@ import { devices } from "../dummy/devices";
 import { useState } from "react";
 import DeviceList from "../components/DeviceList";
 
-export default function Scanning(setIsConnected: any) {
+export default function Scanning({ setIsConnected }: any) {
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   const searching = false;
   const handleSelectDevice = (name: string) => {
