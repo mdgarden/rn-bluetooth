@@ -41,22 +41,9 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [connectedDevice, setConnectedDevice] = useState<string>("");
-  const deviceContext = {
-    deviceName: "device test 1",
-    index: 2,
-  };
 
   return (
-    <DeviceProvider
-      value={{
-        isConnected,
-        setIsConnected,
-        connectedDevice,
-        setConnectedDevice,
-        profile: "test",
-      }}
-    >
+    <DeviceProvider>
       {isConnected ? (
         <Connected setIsConnected={setIsConnected} />
       ) : (

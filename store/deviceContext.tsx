@@ -1,34 +1,80 @@
-import * as React from "react";
+import { createContext, useContext, useReducer } from "react";
 
 type Device = {
-  isConnected: boolean;
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
-  connectedDevice: string;
-  setConnectedDevice: React.Dispatch<React.SetStateAction<string>>;
+  id: string;
   profile: string;
+  index: number;
 };
 
-const DefaultDevice: Device = {
-  isConnected: false,
-  setIsConnected: function (value: React.SetStateAction<boolean>): void {
-    throw new Error("Function not implemented.");
-  },
-  profile: "",
-  connectedDevice: "",
-  setConnectedDevice: function (value: React.SetStateAction<string>): void {
-    throw new Error("Function not implemented.");
-  },
+type BluetoothActions = {
+  type: "CONNECT" | "DISCONNECT";
+  payload: Device;
 };
 
-const DeviceContext = React.createContext<Device>(DefaultDevice);
-
-type Props = {
-  value: Device;
+type ProviderProps = {
   children: React.ReactNode;
 };
 
-export default function DeviceProvider({ value, children }: Props) {
+const initialDevice: Device = {
+  id: "testDevice",
+  profile: "profile test",
+  index: 1,
+};
+
+export const BluetoothReducer = (
+  state: Device,
+  action: BluetoothActions
+): Device => {
+  switch (action.type) {
+    case "CONNECT":
+      // TODO: connect to action.target device
+      return initialDevice;
+    case "DISCONNECT":
+      return {
+        id: "",
+        profile: "",
+        index: 0,
+      };
+  }
+
+  // TODO: throw error
+};
+
+const DeviceContext = createContext<Device>(initialDevice);
+const DeviceDispatchContext =
+  createContext<React.Dispatch<BluetoothActions> | null>(null);
+
+export function useDeviceState() {
+  const context = useContext(DeviceContext);
+
+  if (context === undefined) {
+    throw new Error("useDeviceState must be used within a DeviceProvider");
+  }
+
+  return context;
+}
+
+export function useDeviceDispatch() {
+  const context = useContext(DeviceDispatchContext);
+
+  if (context === undefined) {
+    throw new Error("useDeviceState must be used within a DeviceProvider");
+  }
+
+  return context;
+}
+
+export default function DeviceContextProvider({ children }: ProviderProps) {
+  const [connectedDevice, dispatch] = useReducer(
+    BluetoothReducer,
+    initialDevice
+  );
+
   return (
-    <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>
+    <DeviceContext.Provider value={connectedDevice}>
+      <DeviceDispatchContext.Provider value={dispatch}>
+        {children}
+      </DeviceDispatchContext.Provider>
+    </DeviceContext.Provider>
   );
 }
