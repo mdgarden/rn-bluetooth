@@ -2,7 +2,6 @@ import {
   View,
   Text,
   Button,
-  FlatList,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
@@ -10,7 +9,7 @@ import { devices } from "../dummy/devices";
 import { useState } from "react";
 import DeviceList from "../components/DeviceList";
 
-export default function Scanning({ setIsConnected }: any) {
+export default function Scanning({ setConnectedPeripheral }: any) {
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   const searching = false;
   const handleSelectDevice = (name: string) => {
@@ -37,7 +36,7 @@ export default function Scanning({ setIsConnected }: any) {
       <View style={styles.buttonContainer}>
         <Button
           title={"Connect Device"}
-          onPress={() => setIsConnected(true)}
+          onPress={() => setConnectedPeripheral(devices[1])}
           disabled={!selectedDevice}
         />
       </View>

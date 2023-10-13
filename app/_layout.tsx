@@ -1,7 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Peripheral } from "react-native-ble-manager";
+import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
-import { useEffect, useState } from "react";
 
 import Scanning from "./scanning";
 import Connected from "./connected";
@@ -40,14 +41,15 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [connectedPeripheral, setConnectedPeripheral] =
+    useState<Peripheral | null>(null);
 
   return (
     <DeviceProvider>
-      {isConnected ? (
-        <Connected setIsConnected={setIsConnected} />
+      {connectedPeripheral ? (
+        <Connected setConnectedPeripheral={setConnectedPeripheral} />
       ) : (
-        <Scanning setIsConnected={setIsConnected} />
+        <Scanning setConnectedPeripheral={setConnectedPeripheral} />
       )}
     </DeviceProvider>
   );
