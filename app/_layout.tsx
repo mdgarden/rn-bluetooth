@@ -47,7 +47,10 @@ function RootLayoutNav() {
   return (
     <DeviceProvider>
       {connectedPeripheral ? (
-        <Connected setConnectedPeripheral={setConnectedPeripheral} />
+        <Connected
+          setConnectedPeripheral={setConnectedPeripheral}
+          connectedPeripheral={connectedPeripheral}
+        />
       ) : (
         <Scanning setConnectedPeripheral={setConnectedPeripheral} />
       )}

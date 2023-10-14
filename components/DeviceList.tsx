@@ -1,27 +1,27 @@
 import { Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
-import { Device } from "../dummy/devices";
+import { Peripheral } from "react-native-ble-manager";
 
 type ItemProps = {
-  index: number;
-  title: string;
+  id: string;
+  title: string | undefined;
   selected: boolean;
   onPress: (id: string) => void;
 };
 
 type props = {
-  devices: Device[];
+  devices: Peripheral[];
   onPress: (id: string) => void;
   selected: string;
 };
 
-const Item = ({ index, title, selected, onPress }: ItemProps) => (
+const Item = ({ id, title, selected, onPress }: ItemProps) => (
   <TouchableOpacity
-    onPress={() => onPress(title)}
+    onPress={() => onPress(id)}
     style={{
       ...styles.list,
       backgroundColor: selected ? "darkcyan" : "gainsboro",
     }}
-    key={index}
+    key={id}
   >
     <Text style={{ ...styles.device, color: selected ? "white" : "black" }}>
       {title}
@@ -38,13 +38,13 @@ export default function DeviceList({ devices, onPress, selected }: props) {
         data={devices}
         renderItem={({ item }) => (
           <Item
-            title={item.deviceName}
-            index={item.index}
-            selected={item.deviceName === selected}
+            title={item.name}
+            id={item.id}
+            selected={item.id === selected}
             onPress={onPress}
           />
         )}
-        keyExtractor={(device) => device.index + ""}
+        keyExtractor={(device) => device.id}
       />
     </>
   );

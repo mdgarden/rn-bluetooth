@@ -36,7 +36,7 @@ export default function Scanning({ setConnectedPeripheral }: any) {
       <View style={styles.buttonContainer}>
         <Button
           title={"Connect Device"}
-          onPress={() => setConnectedPeripheral(devices[1])}
+          onPress={() => setConnectedPeripheral(devices[0])}
           disabled={!selectedDevice}
         />
       </View>
