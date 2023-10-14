@@ -27,4 +27,40 @@ export const logs: Log[] = [
     destination: "test destination",
     id: "1",
   },
+  {
+    date: "2023-10-05T14:48:00.000Z",
+    message: "테스트 메세지2",
+    location: {
+      timestamp: 123,
+      coords: {
+        latitude: 123,
+        accuracy: 1,
+        altitude: 123,
+        altitudeAccuracy: 1,
+        heading: 1,
+        longitude: 123,
+        speed: 23,
+      },
+    },
+    destination: "test destination",
+    id: "2",
+  },
+  {
+    date: "2023-10-12T14:48:00.000Z",
+    message: "테스트 메세지3",
+    location: {
+      timestamp: 123,
+      coords: {
+        latitude: 123,
+        accuracy: 1,
+        altitude: 123,
+        altitudeAccuracy: 1,
+        heading: 1,
+        longitude: 123,
+        speed: 23,
+      },
+    },
+    destination: "test destination",
+    id: "3",
+  },
 ];
