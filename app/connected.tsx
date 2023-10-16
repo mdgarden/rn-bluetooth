@@ -3,8 +3,8 @@ import { Peripheral } from "react-native-ble-manager";
 import { logs, Log } from "../dummy/logs";
 
 type Props = {
-  connectedPeripheral: Peripheral;
-  setConnectedPeripheral: (device: Peripheral | null) => void;
+  connectedPeripheral: (peripheral: Peripheral) => Promise<void>;
+  setConnectedPeripheral: any;
 };
 
 type ItemProps = Omit<Log, "id">;
