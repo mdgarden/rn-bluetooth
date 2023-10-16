@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     flex: 2,
     padding: 20,
     paddingTop: 100,
-    backgroundColor: "white",
     justifyContent: "center",
     alignItems: devices ? "stretch" : "center",
   },
@@ -57,6 +56,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
 });
