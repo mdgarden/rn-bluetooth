@@ -8,6 +8,8 @@ import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
+import { View, Text, Button, ScrollView } from "react-native";
+
 import Scanning from "./scanning";
 import Connected from "./connected";
 import DeviceProvider from "../store/deviceContext";
@@ -17,10 +19,10 @@ export {
   ErrorBoundary,
 } from "expo-router";
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "/scanning",
-};
+// export const unstable_settings = {
+//   // Ensure that reloading on `/modal` keeps a back button present.
+//   initialRouteName: "/scanning",
+// };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -51,13 +53,14 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const [isConnected, setIsConnected] = useState(false);
-  const colorScheme = useColorScheme();
 
   return (
-    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
     <DeviceProvider value={{ isConnected, setIsConnected, profile: "test" }}>
-      {isConnected ? Connected(setIsConnected) : Scanning(setIsConnected)}
+      {isConnected ? (
+        <Connected setIsConnected={setIsConnected} />
+      ) : (
+        <Scanning setIsConnected={setIsConnected} />
+      )}
     </DeviceProvider>
-    // </ThemeProvider>
   );
 }
