@@ -1,4 +1,9 @@
-import { Peripheral } from "react-native-ble-manager";
+export type Peripheral = {
+  id: string;
+  rssi: number;
+  name?: string;
+  advertising: {};
+};
 
 export const devices: Peripheral[] = [
   {

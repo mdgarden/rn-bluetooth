@@ -1,5 +1,5 @@
 import { Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
-import { Peripheral } from "react-native-ble-manager";
+import { Peripheral } from "../dummy/devices";
 
 type ItemProps = {
   id: string;

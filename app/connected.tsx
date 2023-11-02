@@ -1,6 +1,7 @@
 import { View, Text, Button, FlatList } from "react-native";
-import { Peripheral } from "react-native-ble-manager";
+
 import { logs, Log } from "../dummy/logs";
+import { Peripheral } from "../dummy/devices";
 
 type Props = {
   connectedPeripheral: (peripheral: Peripheral) => Promise<void>;

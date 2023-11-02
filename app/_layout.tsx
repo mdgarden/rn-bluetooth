@@ -1,14 +1,12 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Peripheral } from "react-native-ble-manager";
 import { useEffect, useState } from "react";
-import { AppRegistry } from "react-native";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 
 import Scanning from "./scanning";
 import Connected from "./connected";
 import DeviceProvider from "../store/deviceContext";
-import { useBluetooth } from "../hooks/bluetooth";
+import { Peripheral } from "../dummy/devices";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -17,7 +15,6 @@ export {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-AppRegistry.registerComponent("rn-bluetooth", () => RootLayout);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -44,8 +41,12 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { isScanning, peripherals, setPeripherals, connectPeripheral } =
-    useBluetooth();
+  // const { isScanning, peripherals, setPeripherals, connectPeripheral } =
+  //   useBluetooth();
+
+  const isScanning = false;
+  const [peripherals, setPeripherals] = useState();
+  const connectPeripheral = async (peripheral: Peripheral) => console.log("");
 
   return (
     <DeviceProvider>
