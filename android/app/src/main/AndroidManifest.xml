@@ -7,6 +7,11 @@
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
   <uses-permission android:name="android.permission.BLUETOOTH_SCAN" tools:targetApi="31"/>
+   <!-- Add this line if your application always requires BLE. More info can be found on:
+       https://developer.android.com/guide/topics/connectivity/bluetooth-le.html#permissions
+     -->
+  <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
+  <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
